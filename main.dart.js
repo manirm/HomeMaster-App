@@ -94306,7 +94306,7 @@ return A.G(p.e.rW(),$async$$1)
 case 7:if(c)p.uL()
 case 6:if(a==="about"){p=q.a.c
 p.toString
-A.b3i(B.M0,"HomeMaster","v1.0.1",A.b([B.Sq,B.Sp,B.Sr],t.p),p)}return A.L(null,r)}})
+A.b3i(B.M0,"HomeMaster","v1.2.4",A.b([B.Sq,B.Sp,B.Sr],t.p),p)}return A.L(null,r)}})
 return A.M($async$$1,r)},
 $S:562}
 A.asu.prototype={
