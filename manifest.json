@@ -1,7 +1,9 @@
 {
+    "id": "./",
     "name": "HomeMaster",
     "short_name": "HomeMaster",
     "start_url": "./",
+    "scope": "./",
     "display": "standalone",
     "background_color": "#090d16",
     "theme_color": "#d97706",
@@ -12,12 +14,14 @@
         {
             "src": "icons/Icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-maskable-192.png",

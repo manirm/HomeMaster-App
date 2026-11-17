@@ -35,6 +35,21 @@
   <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
   <title>HomeMaster</title>
   <link rel="manifest" href="manifest.json">
+  <script>
+    window.__homeMasterDeferredPrompt = null;
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault();
+      window.__homeMasterDeferredPrompt = e;
+    });
+    window.addEventListener("appinstalled", function () {
+      window.__homeMasterDeferredPrompt = null;
+    });
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./sw.js").catch(function () {});
+      });
+    }
+  </script>
   <style>
     html, body {
       background-color: #f8fafc;

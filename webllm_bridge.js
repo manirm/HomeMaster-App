@@ -263,6 +263,21 @@ window.HomeMasterWebLLM = {
     return Boolean(typeof navigator !== "undefined" && navigator.gpu);
   },
 
+  async triggerInstallPrompt() {
+    try {
+      const promptEvent = window.__homeMasterDeferredPrompt;
+      if (!promptEvent || typeof promptEvent.prompt !== "function") {
+        return false;
+      }
+      await promptEvent.prompt();
+      const choice = await promptEvent.userChoice;
+      window.__homeMasterDeferredPrompt = null;
+      return Boolean(choice && choice.outcome === "accepted");
+    } catch (_) {
+      return false;
+    }
+  },
+
   getInitialHash() {
     return typeof window !== "undefined" ? window.location.hash || "" : "";
   },
