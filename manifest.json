@@ -1,11 +1,11 @@
 {
     "name": "HomeMaster",
     "short_name": "HomeMaster",
-    "start_url": ".",
+    "start_url": "./",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "Professional Home & Maintenance Suite",
+    "background_color": "#090d16",
+    "theme_color": "#d97706",
+    "description": "HomeMaster: Maintenance, GearVault Warranties & Local AI Copilot",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
