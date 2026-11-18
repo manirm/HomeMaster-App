@@ -1,4 +1,4 @@
-const CACHE_NAME = "homemaster-pwa-v1.4.3";
+const CACHE_NAME = "homemaster-pwa-v1.4.4";
 
 const CORE_ASSETS = [
   "./",
@@ -11,9 +11,31 @@ const CORE_ASSETS = [
   "./icons/Icon-maskable-512.png"
 ];
 
+function isFreshCriticalAsset(req, url) {
+  if (req.mode === "navigate") return true;
+  const p = url.pathname;
+  return (
+    p.endsWith("/") ||
+    p.endsWith(".html") ||
+    p.endsWith(".js") ||
+    p.endsWith("manifest.json")
+  );
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)).catch(() => {})
+    caches
+      .open(CACHE_NAME)
+      .then((cache) =>
+        Promise.all(
+          CORE_ASSETS.map((asset) =>
+            fetch(asset, { cache: "no-cache" })
+              .then((res) => (res && res.ok ? cache.put(asset, res) : null))
+              .catch(() => null)
+          )
+        )
+      )
+      .catch(() => {})
   );
   self.skipWaiting();
 });
@@ -23,7 +45,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys
-          .filter((key) => key.startsWith("homemaster-pwa-") && key !== CACHE_NAME)
+          .filter((key) => key !== CACHE_NAME)
           .map((key) => caches.delete(key))
       )
     )
@@ -38,10 +60,14 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
+  const networkPromise = isFreshCriticalAsset(req, url)
+    ? fetch(req.url, { cache: "no-cache", credentials: "same-origin" })
+    : fetch(req);
+
   // Network-first strategy so deployed fixes reach family members immediately,
   // while providing full offline fallback and qualifying the PWA for install prompts.
   event.respondWith(
-    fetch(req)
+    networkPromise
       .then((res) => {
         if (res && res.status === 200 && res.type === "basic") {
           const copy = res.clone();
