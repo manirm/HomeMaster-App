@@ -34,7 +34,7 @@
   <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#090d16" media="(prefers-color-scheme: dark)">
   <title>HomeMaster</title>
-  <link rel="manifest" href="manifest.json?v=1.4.4">
+  <link rel="manifest" href="manifest.json?v=1.4.5">
   <script>
     window.__homeMasterDeferredPrompt = null;
 
@@ -126,7 +126,7 @@
     }
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js?v=1.4.4").then(function (reg) {
+      navigator.serviceWorker.register("./sw.js?v=1.4.5").then(function (reg) {
         if (reg && typeof reg.update === "function") {
           reg.update().catch(function () {});
         }
@@ -235,7 +235,7 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
-  <script type="module" src="webllm_bridge.js?v=1.4.4"></script>
-  <script src="flutter_bootstrap.js?v=1.4.4" async></script>
+  <script type="module" src="webllm_bridge.js?v=1.4.5"></script>
+  <script src="flutter_bootstrap.js?v=1.4.5" async></script>
 </body>
 </html>
